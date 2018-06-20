@@ -43,6 +43,10 @@ before_script:
 
 
 matrix:
+  allow_failures:
+    - env: INSTANCE=chef13v6-ubuntu-14
+    - env: INSTANCE=chef13v6-debian-8
+
   include:
     - script:
       - /opt/chefdk/bin/chef exec rake
