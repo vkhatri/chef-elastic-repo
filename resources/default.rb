@@ -24,7 +24,7 @@ property :yum_metadata_expire, String, default: '3h'
 default_action :create
 
 action :create do
-  major_version = version.split('.')[0]
+  major_version = new_resource.version.split('.')[0]
   repo_name = "elastic#{major_version}"
   apt_uri = new_resource.apt_uri ? new_resource.apt_uri : "https://artifacts.elastic.co/packages/#{major_version}.x/apt"
   yum_baseurl = new_resource.yum_baseurl ? yum_baseurl : "https://artifacts.elastic.co/packages/#{major_version}.x/yum"
@@ -57,6 +57,9 @@ action :create do
 end
 
 action :delete do
+  major_version = new_resource.version.split('.')[0]
+  repo_name = "elastic#{major_version}"
+
   if node['platform_family'] == 'debian'
     apt_repository repo_name do
       action :remove

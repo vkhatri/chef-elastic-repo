@@ -5,6 +5,11 @@
 
 elastic_repo 'default' do
   version '6.3.0'
+  action :delete
+end
+
+elastic_repo 'default' do
+  version '6.3.0'
 end
 
 package %w[apt-utils openjdk-8-jdk] if node['platform_family'] == 'debian'
