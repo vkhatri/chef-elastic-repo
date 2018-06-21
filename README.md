@@ -46,13 +46,13 @@ Resource `elastic_repo` setup `apt` and `yum` Elasti Repository.
 
 * `gpg_key (String)` default: 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
 
-* `apt_uri (String, NilClass)` default: nil
+* `apt_uri (String, NilClass)` default: `https://artifacts.elastic.co/packages/#{major_version}.x/apt`
 
 * `apt_components (Array)` default: %w[stable main]
 
 * `apt_distribution (String)` default: ''
 
-* `yum_baseurl (String, NilClass)` default: nil
+* `yum_baseurl (String, NilClass)` default: `https://artifacts.elastic.co/packages/#{major_version}.x/yum`
 
 * `yum_gpgcheck (TrueClass, FalseClass)` default: true
 
