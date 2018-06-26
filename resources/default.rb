@@ -27,7 +27,7 @@ action :create do
   major_version = new_resource.version.split('.')[0]
   repo_name = "elastic#{major_version}"
   apt_uri = new_resource.apt_uri ? new_resource.apt_uri : "https://artifacts.elastic.co/packages/#{major_version}.x/apt"
-  yum_baseurl = new_resource.yum_baseurl ? yum_baseurl : "https://artifacts.elastic.co/packages/#{major_version}.x/yum"
+  yum_baseurl = new_resource.yum_baseurl ? new_resource.yum_baseurl : "https://artifacts.elastic.co/packages/#{major_version}.x/yum"
 
   if node['platform_family'] == 'debian'
     package 'apt-transport-https'
@@ -37,7 +37,6 @@ action :create do
       key new_resource.gpg_key
       components new_resource.apt_components
       distribution new_resource.apt_distribution
-      action :add
     end
 
   elsif %w[amazon rhel fedora].include?(node['platform_family'])

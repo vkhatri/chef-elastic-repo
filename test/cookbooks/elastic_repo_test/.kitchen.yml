@@ -19,7 +19,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[elastic_beats_repo_test::default]
+      - recipe[elastic_repo_test::default]
     verifier:
       inspec_tests:
         - test/smoke/default
