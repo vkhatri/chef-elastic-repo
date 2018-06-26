@@ -9,9 +9,6 @@ source_url 'https://github.com/vkhatri/chef-elastic-repo' if respond_to?(:source
 issues_url 'https://github.com/vkhatri/chef-elastic-repo/issues' if respond_to?(:issues_url)
 chef_version '>= 12.14' if respond_to?(:chef_version)
 
-depends 'apt', '<= 6.1.4'
-depends 'yum', '>= 5.0.1'
-
 %w[debian ubuntu centos amazon redhat fedora].each do |os|
   supports os
 end
