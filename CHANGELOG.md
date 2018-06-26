@@ -1,6 +1,11 @@
 elastic_repo CHANGELOG
 ==================
 
+1.1.1
+-----
+
+Virender Khatri - Removed apt/yum cookbook dependency
+
 1.1.0
 -----
 

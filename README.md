@@ -12,14 +12,14 @@ This is a [Chef] Cookbook to Create Yum/Apt [Elastic] Repository.
 ## Most Recent Release
 
 ```ruby
-cookbook 'elastic_repo', '~> 1.1.0'
+cookbook 'elastic_repo', '~> 1.1.1'
 ```
 
 
 ## From Git
 
 ```ruby
-cookbook 'elastic_repo', github: 'vkhatri/chef-elastic-repo',  tag: 'v1.1.0'
+cookbook 'elastic_repo', github: 'vkhatri/chef-elastic-repo',  tag: 'v1.1.1'
 ```
 
 
@@ -38,7 +38,12 @@ https://github.com/vkhatri/chef-elastic-repo
 
 ## Resource elastic_repo Properties
 
-Resource `elastic_repo` setup `apt` and `yum` Elasti Repository.
+Resource `elastic_repo` setup `apt` and `yum` Elastic Repository.
+
+Usage:
+```ruby
+elastic_repo 'default'
+```
 
 * `version (String)` default: '6.3.0'
 
