@@ -21,7 +21,7 @@ elastic_repo_options = {
 }
 
 elastic_repo 'default' do
-  version elastic_repo_options['beats_version']
+  version elastic_repo_options['version']
   action :delete
 end
 
