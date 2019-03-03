@@ -92,18 +92,9 @@ platforms:
         - RUN yum install -y net-tools initscripts
 
 suites:
-  - name: chef12v6
-    driver:
-      chef_version: 12.21.4
-    verifier:
-      inspec_tests:
-        - test/smoke/v6
-    run_list:
-      - recipe[elastic_repo_test::v6]
-
   - name: chef13v6
     driver:
-      chef_version: 13.3.42
+      chef_version: 13.12.3
     verifier:
       inspec_tests:
         - test/smoke/v6
@@ -112,28 +103,16 @@ suites:
 
   - name: chef14v6
     driver:
-      chef_version: 14.0.201
+      chef_version: 14.7.17
     verifier:
       inspec_tests:
         - test/smoke/v6
     run_list:
       - recipe[elastic_repo_test::v6]
 
-  - name: chef12v5
-    driver:
-      chef_version: 12.21.4
-    verifier:
-      inspec_tests:
-        - test/smoke/v5
-    run_list:
-      - recipe[elastic_repo_test::v5]
-    attributes:
-      elastic_repo:
-        version: 5.6.9
-
   - name: chef13v5
     driver:
-      chef_version: 13.3.42
+      chef_version: 13.12.3
     verifier:
       inspec_tests:
         - test/smoke/v5
@@ -145,7 +124,7 @@ suites:
 
   - name: chef14v5
     driver:
-      chef_version: 14.0.201
+      chef_version: 14.7.17
     verifier:
       inspec_tests:
         - test/smoke/v5

@@ -3,10 +3,11 @@
 # Recipe:: v6
 #
 
-version = '6.3.0'
+beats_version = '6.6.1'
+es_version = '6.6.1'
 
 elastic_repo_options = {
-  'version' => version,
+  'version' => beats_version,
   'description' => 'Elastic Packages Repository Custom',
   'gpg_key' => 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
   'yum_baseurl' => 'https://artifacts.elastic.co/packages/6.x/yum',
@@ -20,7 +21,7 @@ elastic_repo_options = {
 }
 
 elastic_repo 'default' do
-  version elastic_repo_options['version']
+  version elastic_repo_options['beats_version']
   action :delete
 end
 
@@ -30,11 +31,24 @@ elastic_repo 'default' do
   end
 end
 
-package %w[apt-utils openjdk-8-jdk] if node['platform_family'] == 'debian'
-package_version = %w[fedora rhel amazon].include?(node['platform_family']) ? "#{version}-1" : version
+if node['platform_family'] == 'debian'
+  package %w[apt-utils openjdk-8-jdk]
+else
+  package 'epel-release'
+  package %w[java-1.8.0-openjdk]
+end
 
-%w[filebeat packetbeat metricbeat heartbeat-elastic auditbeat elasticsearch kibana].each do |p|
+beats_package_version = %w[fedora rhel amazon].include?(node['platform_family']) ? "#{beats_version}-1" : beats_version
+es_package_version = %w[fedora rhel amazon].include?(node['platform_family']) ? "#{es_version}-1" : es_version
+
+%w[filebeat packetbeat metricbeat heartbeat-elastic auditbeat].each do |p|
   package p do
-    version package_version
+    version beats_package_version
+  end
+end
+
+%w[elasticsearch kibana].each do |p|
+  package p do
+    version es_package_version
   end
 end

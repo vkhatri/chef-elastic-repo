@@ -7,7 +7,7 @@
 
 resource_name :elastic_repo
 
-property :version, String, default: '6.3.0'
+property :version, String, default: '6.6.1'
 property :description, String, default: 'Elastic Packages Repository'
 property :gpg_key, String, default: 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
 
