@@ -31,9 +31,13 @@ elastic_repo 'default' do
   end
 end
 
-if node['platform_family'] == 'debian'
+case node['platform_family']
+when 'debian'
   package %w[apt-utils openjdk-8-jdk]
-else
+when 'fedora'
+  package 'fedora-release'
+  package %w[java-1.8.0-openjdk]
+when 'rhel'
   package 'epel-release'
   package %w[java-1.8.0-openjdk]
 end
