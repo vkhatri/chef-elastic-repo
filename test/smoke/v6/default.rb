@@ -17,35 +17,35 @@ end
 
 describe package('filebeat') do
   it { should be_installed }
-  its('version') { should match '6.3.0' }
+  its('version') { should match '6.6.1' }
 end
 
 describe package('packetbeat') do
   it { should be_installed }
-  its('version') { should match '6.3.0' }
+  its('version') { should match '6.6.1' }
 end
 
 describe package('metricbeat') do
   it { should be_installed }
-  its('version') { should match '6.3.0' }
+  its('version') { should match '6.6.1' }
 end
 
 describe package('heartbeat-elastic') do
   it { should be_installed }
-  its('version') { should match '6.3.0' }
+  its('version') { should match '6.6.1' }
 end
 
 describe package('auditbeat') do
   it { should be_installed }
-  its('version') { should match '6.3.0' }
+  its('version') { should match '6.6.1' }
 end
 
 describe package('elasticsearch') do
   it { should be_installed }
-  its('version') { should match '6.3.0' }
+  its('version') { should match '6.6.1' }
 end
 
 describe package('kibana') do
   it { should be_installed }
-  its('version') { should match '6.3.0' }
+  its('version') { should match '6.6.1' }
 end
