@@ -31,16 +31,30 @@ elastic_repo 'default' do
   end
 end
 
-case node['platform_family']
-when 'debian'
-  package %w[apt-utils openjdk-8-jdk]
-when 'fedora'
-  package 'fedora-release'
-  package %w[java-1.8.0-openjdk]
-when 'rhel'
-  package 'epel-release'
-  package %w[java-1.8.0-openjdk]
+case node['platform']
+when 'centos', 'redhat', 'fedora', 'amazon'
+  deps_packages = value_for_platform(
+    %w[centos redhat] => { 'default' => %w[epel-release java-1.8.0-openjdk] },
+    'fedora' => { 'default' => %w[fedora-release java-1.8.0-openjdk] },
+    'amazon' => { 'default' => %w[epel-release java-1.8.0-openjdk], '2' => %w[java-1.8.0-openjdk] }
+  )
+when 'ubuntu', 'debian', 'raspbian'
+  deps_packages = %w[apt-utils openjdk-8-jdk]
 end
+
+if (node['platform_family'] == 'amazon') && (node['platform_version'] == '2')
+  execute 'install amazon extra package epel' do
+    command 'amazon-linux-extras install epel -y'
+  end
+elsif node['platform'] == 'debian'
+  apt_repository "#{node['lsb']['codename']}_backports" do
+    uri 'http://http.debian.net/debian'
+    distribution "#{node['lsb']['codename']}-backports"
+    components ['main']
+  end
+end
+
+package deps_packages
 
 beats_package_version = %w[fedora rhel amazon].include?(node['platform_family']) ? "#{beats_version}-1" : beats_version
 es_package_version = %w[fedora rhel amazon].include?(node['platform_family']) ? "#{es_version}-1" : es_version
