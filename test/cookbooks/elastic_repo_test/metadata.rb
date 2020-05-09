@@ -1,9 +1,15 @@
 name 'elastic_repo_test'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'All Rights Reserved'
-description 'Installs/Configures elastic_repo_test'
-long_description 'Installs/Configures elastic_repo_test'
+maintainer 'Virender Khatri'
+maintainer_email 'vir.khatri@gmail.com'
+license 'Apache-2.0'
+description 'Test cookbook elastic_repo'
 version '0.1.0'
-chef_version '>= 12.1' if respond_to?(:chef_version)
+source_url 'https://github.com/vkhatri/chef-elastic-repo'
+issues_url 'https://github.com/vkhatri/chef-elastic-repo/issues'
+chef_version '>= 12.14'
+
+%w(debian ubuntu centos amazon redhat fedora).each do |os|
+  supports os
+end
+
 depends 'elastic_repo'

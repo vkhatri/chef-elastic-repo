@@ -18,4 +18,3 @@
 #
 
 Chef::Log.warn('The elastic_repo::default cookbook has no recipes. See the README.md for information on using the elastic_repo resource in your recipes.')
-
