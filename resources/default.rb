@@ -1,24 +1,24 @@
 #
-# Cookbook Name:: elastic_repo
+# Cookbook:: elastic_repo
 # Resource:: elastic_repo
 #
-# Copyright 2017, Virender Khatri
+# Copyright:: 2017, Virender Khatri
 #
 
 resource_name :elastic_repo
 
-property :version, String, default: '6.6.1'
+property :version, String, default: '7.6.2'
 property :description, String, default: 'Elastic Packages Repository'
 property :gpg_key, String, default: 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
 
-property :apt_uri, [String, NilClass], default: nil
-property :apt_components, Array, default: %w[stable main]
+property :apt_uri, [String, NilClass]
+property :apt_components, Array, default: %w(stable main)
 property :apt_distribution, String, default: ''
 
-property :yum_baseurl, [String, NilClass], default: nil
-property :yum_gpgcheck, [TrueClass, FalseClass], default: true
-property :yum_enabled, [TrueClass, FalseClass], default: true
-property :yum_priority, [String, NilClass], default: %w[amazon].include?(node['platform_family']) ? '10' : nil
+property :yum_baseurl, [String, NilClass]
+property :yum_gpgcheck, [true, false], default: true
+property :yum_enabled, [true, false], default: true
+property :yum_priority, [String, NilClass], default: platform_family?('amazon') ? '10' : nil
 property :yum_metadata_expire, String, default: '3h'
 
 default_action :create
@@ -29,7 +29,7 @@ action :create do
   apt_uri = new_resource.apt_uri ? new_resource.apt_uri : "https://artifacts.elastic.co/packages/#{major_version}.x/apt"
   yum_baseurl = new_resource.yum_baseurl ? new_resource.yum_baseurl : "https://artifacts.elastic.co/packages/#{major_version}.x/yum"
 
-  if node['platform_family'] == 'debian'
+  if platform_family?('debian')
     package 'apt-transport-https'
 
     apt_repository repo_name do
@@ -39,7 +39,7 @@ action :create do
       distribution new_resource.apt_distribution
     end
 
-  elsif %w[amazon rhel fedora].include?(node['platform_family'])
+  elsif platform_family?('amazon', 'rhel', 'fedora')
     yum_repository repo_name do
       baseurl yum_baseurl
       gpgkey new_resource.gpg_key
@@ -59,12 +59,12 @@ action :delete do
   major_version = new_resource.version.split('.')[0]
   repo_name = "elastic#{major_version}"
 
-  if node['platform_family'] == 'debian'
+  if platform_family?('debian')
     apt_repository repo_name do
       action :remove
     end
 
-  elsif %w[amazon rhel fedora].include?(node['platform_family'])
+  elsif platform_family?('amazon', 'rhel', 'fedora')
     yum_repository repo_name do
       action :remove
     end

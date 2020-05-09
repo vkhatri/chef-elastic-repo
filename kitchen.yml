@@ -22,5 +22,5 @@ suites:
       - recipe[elastic_beats_repo::default]
     verifier:
       inspec_tests:
-        - test/smoke/v5
+        - test/smoke/v7
     attributes:

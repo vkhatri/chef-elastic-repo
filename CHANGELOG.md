@@ -1,6 +1,18 @@
 elastic_repo CHANGELOG
 ==================
 
+1.2.0
+-----
+
+Virender Khatri - Updated kitchen test to use chef workstation and fixed travis
+
+Virender Khatri - Updated default elastic version
+
+Virender Khatri - Added v7 tests and remove v5
+
+Virender Khatri - Removed elasticsearch install from test cookbook
+
+
 1.1.2
 -----
 

@@ -3,8 +3,8 @@
 # Recipe:: v6
 #
 
-beats_version = '6.6.1'
-es_version = '6.6.1'
+beats_version = '6.8.8'
+# es_version = '6.8.8'
 
 elastic_repo_options = {
   'version' => beats_version,
@@ -16,8 +16,8 @@ elastic_repo_options = {
   'yum_priority' => '20',
   'yum_metadata_expire' => '1h',
   'apt_uri' => nil,
-  'apt_components' => %w[stable main],
-  'apt_distribution' => ''
+  'apt_components' => %w(stable main),
+  'apt_distribution' => '',
 }
 
 elastic_repo 'default' do
@@ -34,19 +34,19 @@ end
 case node['platform']
 when 'centos', 'redhat', 'fedora', 'amazon'
   deps_packages = value_for_platform(
-    %w[centos redhat] => { 'default' => %w[epel-release java-1.8.0-openjdk] },
-    'fedora' => { 'default' => %w[fedora-release java-1.8.0-openjdk] },
-    'amazon' => { 'default' => %w[epel-release java-1.8.0-openjdk], '2' => %w[java-1.8.0-openjdk] }
+    %w(centos redhat) => { 'default' => %w(epel-release) },
+    'fedora' => { 'default' => %w() },
+    'amazon' => { 'default' => %w(epel-release), '2' => %w() }
   )
 when 'ubuntu', 'debian', 'raspbian'
-  deps_packages = %w[apt-utils openjdk-8-jdk]
+  deps_packages = %w(apt-utils)
 end
 
-if (node['platform_family'] == 'amazon') && (node['platform_version'] == '2')
+if platform_family?('amazon') && (node['platform_version'] == '2')
   execute 'install amazon extra package epel' do
     command 'amazon-linux-extras install epel -y'
   end
-elsif node['platform'] == 'debian'
+elsif platform?('debian')
   apt_repository "#{node['lsb']['codename']}_backports" do
     uri 'http://http.debian.net/debian'
     distribution "#{node['lsb']['codename']}-backports"
@@ -56,17 +56,11 @@ end
 
 package deps_packages
 
-beats_package_version = %w[fedora rhel amazon].include?(node['platform_family']) ? "#{beats_version}-1" : beats_version
-es_package_version = %w[fedora rhel amazon].include?(node['platform_family']) ? "#{es_version}-1" : es_version
+beats_package_version = platform_family?('fedora', 'rhel', 'amazon') ? "#{beats_version}-1" : beats_version
+# es_package_version = platform_family?('fedora', 'rhel', 'amazon') ? "#{es_version}-1" : es_version
 
-%w[filebeat packetbeat metricbeat heartbeat-elastic auditbeat].each do |p|
+%w(filebeat packetbeat metricbeat heartbeat-elastic auditbeat).each do |p|
   package p do
     version beats_package_version
-  end
-end
-
-%w[elasticsearch kibana].each do |p|
-  package p do
-    version es_package_version
   end
 end
