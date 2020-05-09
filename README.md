@@ -32,8 +32,8 @@ https://github.com/vkhatri/chef-elastic-repo
 
 ## Supported Elasticsearch Versions
 
-- 5
 - 6
+- 7
 
 
 ## Resource elastic_repo Properties
@@ -45,7 +45,7 @@ Usage:
 elastic_repo 'default'
 ```
 
-* `version (String)` default: '6.6.1'
+* `version (String)` default: '7.6.2'
 
 * `description (String)` default: 'Elastic Packages Repository'
 
