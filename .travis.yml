@@ -37,15 +37,12 @@ env:
     - INSTANCE=v6-amazon2
 
 
-script:
-  - KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen verify ${INSTANCE}
-  - cat .kitchen/logs/kitchen.log
-
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
-  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  - eval "$(chef shell-init bash)"
   - chef --version
 
+script: KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen verify ${INSTANCE}
 
 matrix:
   include:
@@ -54,4 +51,3 @@ matrix:
       env:
         - UNIT_AND_LINT=1
         - CHEF_LICENSE=accept
-
