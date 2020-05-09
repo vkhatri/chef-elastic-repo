@@ -42,7 +42,7 @@ before_script:
   - eval "$(chef shell-init bash)"
   - chef --version
 
-script: KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen verify ${INSTANCE}
+script: CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen verify ${INSTANCE}
 
 matrix:
   include:
