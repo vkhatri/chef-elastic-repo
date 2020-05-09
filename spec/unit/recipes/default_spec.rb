@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe 'elastic_repo_test::v5' do
+describe 'elastic_repo_test::v6' do
   context 'When all attributes are default, on an Ubuntu 16.04' do
     let(:chef_run) do
       # for a complete list of available platforms and versions see:
@@ -21,7 +21,7 @@ describe 'elastic_repo_test::v5' do
   end
 end
 
-describe 'elastic_repo_test::v6' do
+describe 'elastic_repo_test::v7' do
   context 'When all attributes are default, on an Ubuntu 16.04' do
     let(:chef_run) do
       # for a complete list of available platforms and versions see:
