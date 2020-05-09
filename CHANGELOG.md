@@ -1,6 +1,16 @@
 elastic_repo CHANGELOG
 ==================
 
+1.2.0
+-----
+
+Virender Khatri - Updated Kitchen Tests
+
+Virender Khatri - Updated default elastic version
+
+Virender Khatri - Added v7 tests and remove v5
+
+
 1.1.2
 -----
 

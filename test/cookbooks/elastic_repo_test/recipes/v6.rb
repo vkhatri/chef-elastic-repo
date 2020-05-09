@@ -3,8 +3,8 @@
 # Recipe:: v6
 #
 
-beats_version = '6.6.1'
-es_version = '6.6.1'
+beats_version = '6.8.8'
+es_version = '6.8.8'
 
 elastic_repo_options = {
   'version' => beats_version,
@@ -34,12 +34,12 @@ end
 case node['platform']
 when 'centos', 'redhat', 'fedora', 'amazon'
   deps_packages = value_for_platform(
-    %w[centos redhat] => { 'default' => %w[epel-release java-1.8.0-openjdk] },
-    'fedora' => { 'default' => %w[fedora-release java-1.8.0-openjdk] },
-    'amazon' => { 'default' => %w[epel-release java-1.8.0-openjdk], '2' => %w[java-1.8.0-openjdk] }
+    %w[centos redhat] => { 'default' => %w[epel-release] },
+    'fedora' => { 'default' => %w[] },
+    'amazon' => { 'default' => %w[epel-release], '2' => %w[] }
   )
 when 'ubuntu', 'debian', 'raspbian'
-  deps_packages = %w[apt-utils openjdk-8-jdk]
+  deps_packages = %w[apt-utils]
 end
 
 if (node['platform_family'] == 'amazon') && (node['platform_version'] == '2')
@@ -62,11 +62,5 @@ es_package_version = %w[fedora rhel amazon].include?(node['platform_family']) ? 
 %w[filebeat packetbeat metricbeat heartbeat-elastic auditbeat].each do |p|
   package p do
     version beats_package_version
-  end
-end
-
-%w[elasticsearch kibana].each do |p|
-  package p do
-    version es_package_version
   end
 end
