@@ -42,7 +42,7 @@ when 'ubuntu', 'debian', 'raspbian'
   deps_packages = %w(apt-utils)
 end
 
-if platform_family?('amazon') && (node['platform_version'] == '2')
+if (node['platform_family'] == 'amazon') && (node['platform_version'] == '2')
   execute 'install amazon extra package epel' do
     command 'amazon-linux-extras install epel -y'
   end
@@ -56,7 +56,7 @@ end
 
 package deps_packages
 
-beats_package_version = platform_family?('fedora', 'rhel', 'amazon') ? "#{beats_version}-1" : beats_version
+beats_package_version = ['amazon', 'rhel', 'fedora'].include?(node['platform_family']) ? "#{beats_version}-1" : beats_version
 # es_package_version = platform_family?('fedora', 'rhel', 'amazon') ? "#{es_version}-1" : es_version
 
 %w(filebeat packetbeat metricbeat heartbeat-elastic auditbeat).each do |p|
