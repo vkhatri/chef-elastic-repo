@@ -39,7 +39,7 @@ action :create do
       distribution new_resource.apt_distribution
     end
 
-  elsif %w[amazon rhel fedora].include?(node['platform_family'])
+  elsif %w(amazon rhel fedora).include?(node['platform_family'])
     yum_repository repo_name do
       baseurl yum_baseurl
       gpgkey new_resource.gpg_key
@@ -64,7 +64,7 @@ action :delete do
       action :remove
     end
 
-  elsif %w[amazon rhel fedora].include?(node['platform_family'])
+  elsif %w(amazon rhel fedora).include?(node['platform_family'])
     yum_repository repo_name do
       action :remove
     end

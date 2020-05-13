@@ -61,7 +61,7 @@ end
 
 package deps_packages
 
-beats_package_version = %w[amazon rhel fedora].include?(node['platform_family']) ? "#{beats_version}-1" : beats_version
+beats_package_version = %w(amazon rhel fedora).include?(node['platform_family']) ? "#{beats_version}-1" : beats_version
 # es_package_version = platform_family?('fedora', 'rhel', 'amazon') ? "#{es_version}-1" : es_version
 
 %w(filebeat packetbeat metricbeat heartbeat-elastic auditbeat).each do |p|
