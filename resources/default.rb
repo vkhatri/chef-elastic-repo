@@ -18,7 +18,7 @@ property :apt_distribution, String, default: ''
 property :yum_baseurl, [String, NilClass]
 property :yum_gpgcheck, [true, false], default: true
 property :yum_enabled, [true, false], default: true
-property :yum_priority, [String, NilClass], default: node['platform_family'] =='amazon' ? '10' : nil
+property :yum_priority, [String, NilClass], default: node['platform_family'] == 'amazon' ? '10' : nil
 property :yum_metadata_expire, String, default: '3h'
 
 default_action :create
@@ -39,7 +39,7 @@ action :create do
       distribution new_resource.apt_distribution
     end
 
-  elsif ['amazon', 'rhel', 'fedora'].include?(node['platform_family'])
+  elsif %w[amazon rhel fedora].include?(node['platform_family'])
     yum_repository repo_name do
       baseurl yum_baseurl
       gpgkey new_resource.gpg_key
@@ -64,7 +64,7 @@ action :delete do
       action :remove
     end
 
-  elsif ['amazon', 'rhel', 'fedora'].include?(node['platform_family'])
+  elsif %w[amazon rhel fedora].include?(node['platform_family'])
     yum_repository repo_name do
       action :remove
     end
