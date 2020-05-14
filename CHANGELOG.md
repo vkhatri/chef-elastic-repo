@@ -6,6 +6,7 @@ elastic_repo CHANGELOG
 
 Javin Forrester - Updated platform_family to use node attribute
 
+
 1.2.0
 -----
 

@@ -12,14 +12,14 @@ This is a [Chef] Cookbook to Create Yum/Apt [Elastic] Repository.
 ## Most Recent Release
 
 ```ruby
-cookbook 'elastic_repo', '~> 1.2.0'
+cookbook 'elastic_repo', '~> 1.2.1'
 ```
 
 
 ## From Git
 
 ```ruby
-cookbook 'elastic_repo', github: 'vkhatri/chef-elastic-repo',  tag: 'v1.2.0'
+cookbook 'elastic_repo', github: 'vkhatri/chef-elastic-repo',  tag: 'v1.2.1'
 ```
 
 
