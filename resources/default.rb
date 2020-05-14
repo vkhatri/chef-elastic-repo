@@ -18,7 +18,7 @@ property :apt_distribution, String, default: ''
 property :yum_baseurl, [String, NilClass]
 property :yum_gpgcheck, [true, false], default: true
 property :yum_enabled, [true, false], default: true
-property :yum_priority, [String, NilClass], default: platform_family?('amazon') ? '10' : nil
+property :yum_priority, [String, NilClass], default: node['platform_family'] == 'amazon' ? '10' : nil
 property :yum_metadata_expire, String, default: '3h'
 
 default_action :create
@@ -29,7 +29,7 @@ action :create do
   apt_uri = new_resource.apt_uri ? new_resource.apt_uri : "https://artifacts.elastic.co/packages/#{major_version}.x/apt"
   yum_baseurl = new_resource.yum_baseurl ? new_resource.yum_baseurl : "https://artifacts.elastic.co/packages/#{major_version}.x/yum"
 
-  if platform_family?('debian')
+  if node['platform_family'] == 'debian'
     package 'apt-transport-https'
 
     apt_repository repo_name do
@@ -39,7 +39,7 @@ action :create do
       distribution new_resource.apt_distribution
     end
 
-  elsif platform_family?('amazon', 'rhel', 'fedora')
+  elsif %w(amazon rhel fedora).include?(node['platform_family'])
     yum_repository repo_name do
       baseurl yum_baseurl
       gpgkey new_resource.gpg_key
@@ -59,12 +59,12 @@ action :delete do
   major_version = new_resource.version.split('.')[0]
   repo_name = "elastic#{major_version}"
 
-  if platform_family?('debian')
+  if node['platform_family'] == 'debian'
     apt_repository repo_name do
       action :remove
     end
 
-  elsif platform_family?('amazon', 'rhel', 'fedora')
+  elsif %w(amazon rhel fedora).include?(node['platform_family'])
     yum_repository repo_name do
       action :remove
     end
