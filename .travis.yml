@@ -7,9 +7,6 @@ addons:
 
 install: echo "skip bundle install"
 
-env:
-  - CHEF_LICENSE=accept
-
 branches:
   only:
     - master
